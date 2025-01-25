@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class MixingController : MonoBehaviour
 {
+    public int maxCapacity = 100;
+    public int currentCapacity = 0;
+    public bool maxCapacityReached = false;
     public GameObject resultPotionGameobject;
     public Material resultMaterial;
     public Color resultColour;
@@ -24,10 +28,20 @@ public class MixingController : MonoBehaviour
         return sourceColours.IndexOf(source.color); // either way, you'll need to know the position of it in the list of source colors, to know which ratio to increase.
     }
     public void incrementRatio(int ratioIndex){ // this should be called while it is colliding.
-        ratios[ratioIndex]+=1;
+        if(currentCapacity < maxCapacity)
+            ratios[ratioIndex]+=1;
+    }
+    public void resetPotion(){
+        ratios.Clear();
+        sourceColours.Clear();
+        resultColour.r=0.0f;
+        resultColour.g=0.0f;
+        resultColour.b=0.0f;
+        currentCapacity=0;
+        maxCapacityReached=false;
     }
     void getPotionGameObject(){
-        resultPotionGameobject = GameObject.FindWithTag("ResultingPotion");
+        resultPotionGameobject = GameObject.FindWithTag("Pot");
         tempRenderer = resultPotionGameobject.GetComponent<Renderer>();
         resultMaterial = tempRenderer.material;
         resultColour = resultMaterial.color;
@@ -44,9 +58,13 @@ public class MixingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(currentCapacity==maxCapacity)maxCapacityReached=true;
         resultColour.r=0.0f;
         resultColour.g=0.0f;
         resultColour.b=0.0f;
+        if(currentCapacity >=maxCapacity){
+            
+        }
         for(int i=0;i<sourceColours.Count;i++){
             int ratiosum=0;
             for(int j=0;j<ratios.Count;j++){
@@ -55,6 +73,7 @@ public class MixingController : MonoBehaviour
             resultColour.r += sourceColours[i].r / ratiosum * ratios[i];
             resultColour.g += sourceColours[i].g / ratiosum * ratios[i];
             resultColour.b += sourceColours[i].b / ratiosum * ratios[i];
+            currentCapacity = ratiosum;
         }
         resultMaterial.color=resultColour;
     }

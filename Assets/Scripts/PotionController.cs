@@ -19,16 +19,16 @@ public class PotionController : MonoBehaviour
     {
         
     }
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("OnCollisionEnter");
-        if(collision.gameObject.tag=="PouringSpot"){
+        if(collision.gameObject.tag=="Pot"){
             indexInController = mixingController.addColorToSources(potionMaterial);
         }
     }
-    void OnCollisionStay(Collision collision){
+    void OnTriggerStay2D(Collider2D collision){
         Debug.Log("OnCollisionStay");
-        if(collision.gameObject.tag=="PouringSpot"){
+        if(collision.gameObject.tag=="Pot" && !mixingController.maxCapacityReached){
             mixingController.ratios[indexInController]+= 1;
         }
     }

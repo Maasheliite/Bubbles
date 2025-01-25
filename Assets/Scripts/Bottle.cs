@@ -31,7 +31,7 @@ public class Bottle : MonoBehaviour
             tilting = true;
 
             animator.Play("TiltDown");
-            Debug.Log("pot");
+            //Debug.Log("pot");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
