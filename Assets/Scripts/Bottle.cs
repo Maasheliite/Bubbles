@@ -48,8 +48,8 @@ public class Bottle : MonoBehaviour
     {
         if (drag)
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            transform.Translate(mousePos);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = mousePos;
         }
         
     }
