@@ -55,7 +55,7 @@ public class MixingController : MonoBehaviour
     }
     void updateParticles(){
         bubbleParticleSystem.startColor = resultColour;
-        bubbleParticleSystemEmission.rateOverTime = currentCapacity;
+        bubbleParticleSystemEmission.rateOverTime = currentCapacity/10;
     }
     // Start is called before the first frame update
     void Start()
