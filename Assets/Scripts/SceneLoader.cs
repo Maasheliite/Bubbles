@@ -5,6 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public AudioSource click;
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            click.pitch = Random.Range(1f, 1.5f);
+            click.Play();
+        }
+    }
+
     public void LoadMenu()
     {
         SceneManager.LoadScene("Menu");
