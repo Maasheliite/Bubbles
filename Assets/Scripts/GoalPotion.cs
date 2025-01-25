@@ -86,10 +86,7 @@ public class GoalPotion : MonoBehaviour
     {
         UpdateUIText();
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            CreateClient();
-        }
+        
         if (!activeClient)
         {
             activeClient = true;
