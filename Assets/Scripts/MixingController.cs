@@ -11,6 +11,7 @@ public class MixingController : MonoBehaviour
     public bool maxCapacityReached = false;
     public GameObject resultPotionGameobject;
     public Material resultMaterial;
+    public SpriteRenderer resultSprite;
     public Color resultColour;
     public List<Material> sources;
     public List<Color> sourceColours;
@@ -43,8 +44,9 @@ public class MixingController : MonoBehaviour
     void getPotionGameObject(){
         resultPotionGameobject = GameObject.FindWithTag("Pot");
         tempRenderer = resultPotionGameobject.GetComponent<Renderer>();
-        resultMaterial = tempRenderer.material;
-        resultColour = resultMaterial.color;
+        //resultMaterial = tempRenderer.material;
+        resultColour = resultPotionGameobject.GetComponent<SpriteRenderer>().color;
+        //resultColour = resultMaterial.color;
     }
     // Start is called before the first frame update
     void Start()
@@ -75,6 +77,7 @@ public class MixingController : MonoBehaviour
             resultColour.b += sourceColours[i].b / ratiosum * ratios[i];
             currentCapacity = ratiosum;
         }
-        resultMaterial.color=resultColour;
+        resultPotionGameobject.GetComponent<SpriteRenderer>().color = resultColour;
+        //resultMaterial.color=resultColour;
     }
 }
