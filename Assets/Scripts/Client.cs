@@ -19,10 +19,14 @@ public class Client : MonoBehaviour
     {
         goalPotion = GameObject.FindObjectOfType<GoalPotion>();
 
-        int ran1 = Random.Range(0, 101);
-        int ran2 = Random.Range(0, 101);
-        int ran3 = Random.Range(0, 101);
+        int ran1 = Random.Range(0, 255);
+        int ran2 = Random.Range(0, 255);
+        int ran3 = Random.Range(0, 255);
+        float sum = 255.0f/(ran1+ran2+ran3);
 
+        ran1 = (int)(ran1 * sum);
+        ran2 = (int)(ran2 * sum);
+        ran3 = (int)(ran3 * sum);
 
         goalPotion.updateGoal(ran1, ran2, ran3);
     }
