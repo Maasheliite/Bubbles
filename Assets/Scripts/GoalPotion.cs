@@ -19,6 +19,11 @@ public class GoalPotion : MonoBehaviour
     public float totalCloseness = 0;
     
     public List<float> score;
+    void updateGoal(int r, int g, int b){
+        goalRGB[0]=r;
+        goalRGB[1]=g;
+        goalRGB[2]=b;
+    }
     void trashIt(){
         mixingController.resetPotion();
         // Debug.Log("trashButtonClicked");
