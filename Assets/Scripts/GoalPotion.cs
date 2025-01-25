@@ -13,13 +13,19 @@ public class GoalPotion : MonoBehaviour
     public TextMeshProUGUI currentText;
     public TextMeshProUGUI CloseToGoal;
     public TextMeshProUGUI fullness;
-    public int[] goalRGB = new int[3];
+    public int[] goalRGB = new int[3] { 100,100,100};
     public float[] currentRGB = new float[3];
     public float[] closeness = new float[3];
     public float totalCloseness = 0;
-    
+
+    public GameObject clientObject;
+    private GameObject clientInstance;
+    public int clientsToday = 10;
+    private bool activeClient;
+
+
     public List<float> score;
-    void updateGoal(int r, int g, int b){
+    public void updateGoal(int r, int g, int b){
         goalRGB[0]=r;
         goalRGB[1]=g;
         goalRGB[2]=b;
@@ -31,6 +37,7 @@ public class GoalPotion : MonoBehaviour
     void shipIt(){
         score.Add(totalCloseness);
         mixingController.resetPotion();
+        MakeClientLeave();
         // Debug.Log("ShipitButtonClicked");
     }
 
@@ -38,11 +45,25 @@ public class GoalPotion : MonoBehaviour
     void Start()
     {
         mixingController = (MixingController) GameObject.FindObjectOfType(typeof(MixingController));
-        goalRGB[0]=100;
-        goalRGB[1]=100;
-        goalRGB[2]=100;
         trashButton.GetComponent<Button>().onClick.AddListener(() => {trashIt(); });
         shipButton.GetComponent<Button>().onClick.AddListener(() => {shipIt(); });
+    }
+
+    private void CreateClient()
+    {
+        clientInstance = Instantiate(clientObject);
+    }
+
+    private void MakeClientLeave()
+    {
+        
+        Client client = clientInstance.GetComponent<Client>();
+        client.LeaveScene();
+        Invoke("ResetClientStatus", 3f);
+    }
+    private void ResetClientStatus()
+    {
+        activeClient = false;
     }
 
     void UpdateUIText(){
@@ -65,6 +86,14 @@ public class GoalPotion : MonoBehaviour
     {
         UpdateUIText();
 
-
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            CreateClient();
+        }
+        if (!activeClient)
+        {
+            activeClient = true;
+            CreateClient();
+        }
     }
 }

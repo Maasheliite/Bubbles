@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class Client : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    public GoalPotion goalPotion;
+    public Animator animator;
+
     void Start()
     {
+        Invoke("SetNumbers", 1f);
+        animator = GetComponent<Animator>();
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void SetNumbers()
     {
-        
+        goalPotion = GameObject.FindObjectOfType<GoalPotion>();
+
+        int ran1 = Random.Range(0, 101);
+        int ran2 = Random.Range(0, 101);
+        int ran3 = Random.Range(0, 101);
+
+
+        goalPotion.updateGoal(ran1, ran2, ran3);
     }
+
+    public void LeaveScene()
+    {
+        animator.Play("outClient");
+        Destroy(gameObject, 1f);
+    }
+
 }
