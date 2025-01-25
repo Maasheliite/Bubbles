@@ -5,6 +5,7 @@ using UnityEngine;
 public class Client : MonoBehaviour
 {
 
+    public AudioSource ding;
     public GoalPotion goalPotion;
     public Animator animator;
 
@@ -17,6 +18,7 @@ public class Client : MonoBehaviour
 
     void SetNumbers()
     {
+        ding.Play();
         goalPotion = GameObject.FindObjectOfType<GoalPotion>();
 
         int ran1 = Random.Range(0, 255);
