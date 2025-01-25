@@ -20,7 +20,9 @@ public class MixingController : MonoBehaviour
     public List<Color> sourceColours;
     public List<int> ratios;
     private Renderer tempRenderer;
-
+    public ParticleSystem particleSystemThing;
+    public ParticleSystem.MainModule bubbleParticleSystem;
+    public ParticleSystem.EmissionModule bubbleParticleSystemEmission;
     public int addColorToSources(Material source){  // this should be called on collision enter
         if(sourceColours.Contains(source.color)){  // don't add the same potion repeatedly, just return it's place in the list
         }
@@ -51,10 +53,16 @@ public class MixingController : MonoBehaviour
         resultColour = resultPotionGameobject.GetComponent<SpriteRenderer>().color;
         //resultColour = resultMaterial.color;
     }
+    void updateParticles(){
+        bubbleParticleSystem.startColor = resultColour;
+        bubbleParticleSystemEmission.rateOverTime = currentCapacity;
+    }
     // Start is called before the first frame update
     void Start()
     {
         getPotionGameObject();
+        bubbleParticleSystem = particleSystemThing.main;
+        bubbleParticleSystemEmission = particleSystemThing.emission;
         //for(int i=0;i<sources.Length;i++){
         //    sourceColours.Add(sources[i].color);
         //}
@@ -80,6 +88,7 @@ public class MixingController : MonoBehaviour
             currentCapacity = ratiosum;
         }
         resultPotionGameobject.GetComponent<SpriteRenderer>().color = resultColour;
+        updateParticles();
         //resultMaterial.color=resultColour;
     }
 }
