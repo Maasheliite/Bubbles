@@ -6,6 +6,9 @@ using UnityEngine.Analytics;
 
 public class MixingController : MonoBehaviour
 {
+    public Transform maskTransform;
+    public float maskTransformMinPos;
+    public float maskTransformMaxPos;
     public int maxCapacity = 100;
     public int currentCapacity = 0;
     public bool maxCapacityReached = false;
@@ -64,9 +67,8 @@ public class MixingController : MonoBehaviour
         resultColour.r=0.0f;
         resultColour.g=0.0f;
         resultColour.b=0.0f;
-        if(currentCapacity >=maxCapacity){
-            
-        }
+        maskTransform.position = new Vector3(maskTransform.position.x, maskTransformMinPos + (((maskTransformMaxPos-maskTransformMinPos)/maxCapacity)*currentCapacity),maskTransform.position.z);
+
         for(int i=0;i<sourceColours.Count;i++){
             int ratiosum=0;
             for(int j=0;j<ratios.Count;j++){
