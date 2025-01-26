@@ -29,15 +29,17 @@ public class PotionUnlock : MonoBehaviour
                 lowestPercent=GoalPotion.score[i];
             }
         }
-        if(lowestPercent<=0.20f){
+        if(lowestPercent<=0.20f && !greyPotionUnlocked){
             greyPotionUnlocked=true;
             greyPotion.SetActive(true);
         }
-        if(lowestPercent<=0.10f){
+        else if(lowestPercent<=0.10f && !whitePotionUnlocked)
+        {
             whitePotionUnlocked=true;
             whitePotion.SetActive(true);
         }
-        if(lowestPercent<=0.05f){
+        else if(lowestPercent<=0.05f && !blackPotionUnlocked)
+        {
             blackPotionUnlocked=true;
             blackPotion.SetActive(true);
         }
