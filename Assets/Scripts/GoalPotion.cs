@@ -81,6 +81,13 @@ public class GoalPotion : MonoBehaviour
     {
         if (clientsToday <= 0)
         {
+            float scoreAvg = 0.0f;
+            for(int i = 0; i < score.Count; i++)
+            {
+                scoreAvg += score[i];
+            }
+            scoreAvg = scoreAvg / score.Count;
+            staticExample.ScoreAvg = scoreAvg;
             sceneLoader.LoadEnd();
         }
         else

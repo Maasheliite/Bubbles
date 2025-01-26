@@ -40,13 +40,13 @@ public class PotionUnlock : MonoBehaviour
                 greyPotion.SetActive(true);
                 search = false;
             }
-            if (lowestPercent <= 0.10f && !whitePotionUnlocked)
+            else if (lowestPercent <= 0.10f && !whitePotionUnlocked)
             {
                 whitePotionUnlocked = true;
                 whitePotion.SetActive(true);
                 search = false;
             }
-            if (lowestPercent <= 0.05f && !blackPotionUnlocked)
+            else if (lowestPercent <= 0.05f && !blackPotionUnlocked)
             {
                 blackPotionUnlocked = true;
                 blackPotion.SetActive(true);

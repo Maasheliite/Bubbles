@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class staticExample
 {
-    public static int ScoreAvg = 0;
+    public static float ScoreAvg = 0;
 }
