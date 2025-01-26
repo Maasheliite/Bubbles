@@ -114,7 +114,7 @@ public class GoalPotion : MonoBehaviour
 
         tempNr = (int)(totalCloseness * 100);
 
-        CloseToGoal.text = (100 - tempNr).ToString() + "  %";            //(100 - (totalCloseness*100)).ToString();
+        CloseToGoal.text = (Mathf.Clamp(100 - tempNr, 0, 100)).ToString() + "  %";            //(100 - (totalCloseness*100)).ToString();
         fullness.text = mixingController.currentCapacity.ToString()+"/"+mixingController.maxCapacity.ToString();
     }
     // Update is called once per frame
