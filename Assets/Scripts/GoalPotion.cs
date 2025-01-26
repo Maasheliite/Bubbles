@@ -14,6 +14,7 @@ public class GoalPotion : MonoBehaviour
     public TextMeshProUGUI CloseToGoal;
     public TextMeshProUGUI fullness;
 
+    private SceneLoader sceneLoader;
     public GameObject goals;
 
     public int[] goalRGB = new int[3] { 100,100,100};
@@ -55,6 +56,7 @@ public class GoalPotion : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sceneLoader = GameObject.FindObjectOfType<SceneLoader>();
         mixingController = (MixingController) GameObject.FindObjectOfType(typeof(MixingController));
         trashButton.GetComponent<Button>().onClick.AddListener(() => {trashIt(); });
         shipButton.GetComponent<Button>().onClick.AddListener(() => {shipIt(); });
@@ -63,6 +65,7 @@ public class GoalPotion : MonoBehaviour
 
     private void CreateClient()
     {
+        clientsToday--;
         clientInstance = Instantiate(clientObject);
     }
 
@@ -71,11 +74,19 @@ public class GoalPotion : MonoBehaviour
         
         Client client = clientInstance.GetComponent<Client>();
         client.LeaveScene();
+        
         Invoke("ResetClientStatus", 3f);
     }
     private void ResetClientStatus()
     {
-        activeClient = false;
+        if (clientsToday <= 0)
+        {
+            sceneLoader.LoadEnd();
+        }
+        else
+        {
+            activeClient = false;
+        }
     }
 
     public void TurnOnGoals()
