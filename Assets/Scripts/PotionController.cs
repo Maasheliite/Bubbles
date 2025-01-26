@@ -15,12 +15,6 @@ public class PotionController : MonoBehaviour
         mixingController = (MixingController) GameObject.FindObjectOfType(typeof(MixingController));
         potionMaterial = this.GetComponent<Renderer>().material;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("OnCollisionEnter");

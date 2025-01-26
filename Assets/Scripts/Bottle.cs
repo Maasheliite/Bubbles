@@ -10,6 +10,7 @@ public class Bottle : MonoBehaviour
     private Vector3 startSpot;
     private bool moving;
     private PotionController potionController;
+    public GameObject shadow;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class Bottle : MonoBehaviour
 
     private void OnMouseDown()
     {
+        shadow.SetActive(false);
         drag = true;
     }
 
@@ -68,5 +70,6 @@ public class Bottle : MonoBehaviour
     private void ResetMove()
     {
         moving = false;
+        shadow.SetActive(true);
     }
 }

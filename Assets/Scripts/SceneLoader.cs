@@ -15,7 +15,10 @@ public class SceneLoader : MonoBehaviour
             click.Play();
         }
     }
-
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
 
     public void Quit()
     {

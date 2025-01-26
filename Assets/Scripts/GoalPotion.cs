@@ -24,9 +24,10 @@ public class GoalPotion : MonoBehaviour
 
     public GameObject clientObject;
     private GameObject clientInstance;
-    public int clientsToday = 10;
+    public int clientsToday = 5;
     private bool activeClient;
     int tempNr;
+
 
 
     public List<float> score;
@@ -67,6 +68,7 @@ public class GoalPotion : MonoBehaviour
     {
         clientsToday--;
         clientInstance = Instantiate(clientObject);
+        
     }
 
     private void MakeClientLeave()
@@ -130,8 +132,18 @@ public class GoalPotion : MonoBehaviour
 
         UpdateUIText();
 
-        
-        if (!activeClient)
+        if (mixingController.currentCapacity > 0)
+        {
+            shipButton.GetComponent<Button>().interactable = true;
+            trashButton.GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            shipButton.GetComponent<Button>().interactable = false;
+            trashButton.GetComponent<Button>().interactable = false;
+        }
+
+            if (!activeClient)
         {
             activeClient = true;
             CreateClient();

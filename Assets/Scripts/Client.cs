@@ -9,12 +9,32 @@ public class Client : MonoBehaviour
     public GoalPotion goalPotion;
     public Animator animator;
 
+
+    public Sprite Client1;
+    public Sprite Client2;
+    private SpriteRenderer spriteRenderer;
+
     void Start()
     {
         Invoke("SetNumbers", 1f);
         animator = GetComponent<Animator>();
         goalPotion = GameObject.FindObjectOfType<GoalPotion>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
+        int p = Random.Range(1, 3);
+        ChangeSprite(p);
+    }
+
+    public void ChangeSprite(int p)
+    {
+        if (p == 1)
+        {
+            spriteRenderer.sprite = Client1;
+        }
+        if (p == 2)
+        {
+            spriteRenderer.sprite = Client2;
+        }
     }
 
     void SetNumbers()
