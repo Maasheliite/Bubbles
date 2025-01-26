@@ -13,13 +13,14 @@ public class Client : MonoBehaviour
     {
         Invoke("SetNumbers", 1f);
         animator = GetComponent<Animator>();
-        
+        goalPotion = GameObject.FindObjectOfType<GoalPotion>();
+
     }
 
     void SetNumbers()
     {
+        goalPotion.TurnOnGoals();
         ding.Play();
-        goalPotion = GameObject.FindObjectOfType<GoalPotion>();
 
         int ran1 = Random.Range(0, 255);
         int ran2 = Random.Range(0, 255);
@@ -35,8 +36,10 @@ public class Client : MonoBehaviour
 
     public void LeaveScene()
     {
+        goalPotion.TurnOffGoals();
         animator.Play("outClient");
         Destroy(gameObject, 1f);
     }
+
 
 }

@@ -13,6 +13,9 @@ public class GoalPotion : MonoBehaviour
     public TextMeshProUGUI currentText;
     public TextMeshProUGUI CloseToGoal;
     public TextMeshProUGUI fullness;
+
+    public GameObject goals;
+
     public int[] goalRGB = new int[3] { 100,100,100};
     public float[] currentRGB = new float[3];
     public float[] closeness = new float[3];
@@ -22,6 +25,7 @@ public class GoalPotion : MonoBehaviour
     private GameObject clientInstance;
     public int clientsToday = 10;
     private bool activeClient;
+    int tempNr;
 
 
     public List<float> score;
@@ -31,13 +35,20 @@ public class GoalPotion : MonoBehaviour
         goalRGB[2]=b;
     }
     void trashIt(){
-        mixingController.resetPotion();
+        if (mixingController.currentCapacity > 0)
+        {
+            mixingController.resetPotion();
+        }
         // Debug.Log("trashButtonClicked");
     }
     void shipIt(){
-        score.Add(totalCloseness);
-        mixingController.resetPotion();
-        MakeClientLeave();
+        if(mixingController.currentCapacity > 0)
+        {
+            score.Add(totalCloseness);
+            mixingController.resetPotion();
+            MakeClientLeave();
+        }
+        
         // Debug.Log("ShipitButtonClicked");
     }
 
@@ -47,6 +58,7 @@ public class GoalPotion : MonoBehaviour
         mixingController = (MixingController) GameObject.FindObjectOfType(typeof(MixingController));
         trashButton.GetComponent<Button>().onClick.AddListener(() => {trashIt(); });
         shipButton.GetComponent<Button>().onClick.AddListener(() => {shipIt(); });
+        TurnOffGoals();
     }
 
     private void CreateClient()
@@ -66,24 +78,38 @@ public class GoalPotion : MonoBehaviour
         activeClient = false;
     }
 
+    public void TurnOnGoals()
+    {
+        goals.SetActive(true);
+    }
+
+    public void TurnOffGoals()
+    {
+        goals.SetActive(false);
+    }
+
     void UpdateUIText(){
         currentRGB[0]=mixingController.resultColour.r * 255 - (mixingController.resultColour.r * 255)%1.0f;
         currentRGB[1]=mixingController.resultColour.g * 255 - (mixingController.resultColour.g * 255)%1.0f;
         currentRGB[2]=mixingController.resultColour.b * 255 - (mixingController.resultColour.b * 255)%1.0f;
 
-        goalText.text=goalRGB[0].ToString()+","+goalRGB[1].ToString()+","+goalRGB[2].ToString();
-        currentText.text=currentRGB[0].ToString()+","+currentRGB[1].ToString()+","+currentRGB[2].ToString();
+        goalText.text=goalRGB[0].ToString()+ "     " + goalRGB[1].ToString()+"     "+goalRGB[2].ToString();
+        currentText.text=currentRGB[0].ToString()+ "     " + currentRGB[1].ToString()+ "     " + currentRGB[2].ToString();
 
         closeness[0]=Mathf.Abs(goalRGB[0]-currentRGB[0]);
         closeness[1]=Mathf.Abs(goalRGB[1]-currentRGB[1]);
         closeness[2]=Mathf.Abs(goalRGB[2]-currentRGB[2]);
         totalCloseness = (closeness[0]+closeness[1]+closeness[2])/255;
-        CloseToGoal.text=totalCloseness.ToString();
+
+        tempNr = (int)(totalCloseness * 100);
+
+        CloseToGoal.text = (100 - tempNr).ToString() + "  %";            //(100 - (totalCloseness*100)).ToString();
         fullness.text = mixingController.currentCapacity.ToString()+"/"+mixingController.maxCapacity.ToString();
     }
     // Update is called once per frame
     void Update()
     {
+
         UpdateUIText();
 
         
